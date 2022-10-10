@@ -1,0 +1,7 @@
+nodeSelector:
+ arch: amd64
+
+tolerations:
+ - key: "arch"
+   operator: "Equal"
+   effect: "NoSchedule"
