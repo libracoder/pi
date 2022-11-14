@@ -40,33 +40,20 @@ resource "kubernetes_namespace" "this" {
 }
 
 
-#resource "helm_release" "nginx_ingress" {
-#  name       = "nginx-ingress-controller"
-#  repository = "https://charts.bitnami.com/bitnami"
-#  chart      = "metallb"
-#  namespace = "ingress-nginx"
-#
-#  values = [
-#    file("values.yaml")
-#  ]
-#
-#  set {
-#    name  = "service.type"
-#    value = "ClusterIP"
-#
-#  }
-#  depends_on = [kubernetes_namespace.this]
-#}
+resource "helm_release" "nginx_ingress" {
+  name       = "nginx-ingress-controller"
+  repository = "https://charts.bitnami.com/bitnami"
+  chart      = "metallb"
+  namespace = "ingress-nginx"
 
-#
-#resource "helm_release" "posgres" {
-#  name       = "postgres"
-#  repository = "https://charts.bitnami.com/bitnami"
-#  chart      = "postgres"
-#  namespace = "db"
-#
-#  values = [
-#    file("values.yaml")
-#  ]
-#  depends_on = [kubernetes_namespace.this]
-#}
+  values = [
+    file("values.yaml")
+  ]
+
+  set {
+    name  = "service.type"
+    value = "LoadBalancer"
+
+  }
+  depends_on = [kubernetes_namespace.this]
+}
