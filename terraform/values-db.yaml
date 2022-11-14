@@ -1,0 +1,3 @@
+nodeSelector:
+ arch: amd64
+
